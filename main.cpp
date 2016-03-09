@@ -10,7 +10,7 @@
 
 int main () 
 {
-	auto world = World::createMassive(5, 5, true, 0.5f);
+	auto world = World::createMassive(20, 50, true, 0.3f);
 
 	Console::initialize();
 

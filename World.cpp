@@ -50,6 +50,12 @@ World::Ptr World::createMassive(int height, int width, bool isCylinder, float la
 		terrains->at(aat(pos.y, pos.x, width)).base = Terrain::BaseType::Glassland;
 	}
 
+	for (int i = 0; i < worldSize; i++) {
+		if (terrains->at(i).base == Terrain::BaseType::None)
+			// XXX Destructive operation
+			terrains->at(i).base = Terrain::BaseType::Ocean;
+	}
+
 	//			terrain = Terrain(
 	//					rnd() % 2 == 0 ? Terrain::BaseType::Glassland : Terrain::BaseType::Ocean,
 	//					Terrain::VerticalType::Flatland,
@@ -63,8 +69,9 @@ std::list<Pos> makeListCoastPositions(std::vector<Terrain>* terrains, int height
 {
 	std::list<Pos> lst;
 
-	for (int y = 0; y < height; y++) {
-		for (int x = 0; x < width; x++) {
+	// For each square
+	for (int y = 2; y < height - 2; y++) {
+		for (int x = 2; x < width - 2; x++) {
 
 			auto terrain = &(terrains->at(aat(y, x, width)));
 
@@ -75,7 +82,7 @@ std::list<Pos> makeListCoastPositions(std::vector<Terrain>* terrains, int height
 			auto rangeY = makeListInRange(y, 1, 0, height - 1);
 			auto rangeX = makeListInRange(x, 1, 0, width - 1);
 
-			// search 
+			// For each neighbor
 			for (auto yy : rangeY) {
 				for (auto xx : rangeX) {
 
