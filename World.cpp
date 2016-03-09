@@ -37,15 +37,17 @@ World::Ptr World::createMassive(int height, int width, bool isCylinder, float la
 
 	for (int n = 0; n < land; n++) {
 		auto coasts = makeListCoastPositions(terrains, height, width, isCylinder);
-		//assert(coasts.size() > 0);
 
-		auto index = rnd() % coasts.size();
-		auto iter = coasts.begin();
-//		std::advance(iter, index);
-//
-//		// DESTRUCTIVE OPERATION
-//		(*iter)->base = Terrain::BaseType::Glassland;
-	//	coasts.front()->base = Terrain::BaseType::Glassland;
+		if (coasts.size() == 0)
+			break;
+
+		auto targetIndex = rnd() % coasts.size();
+		auto itr = coasts.begin();
+		std::advance(itr, targetIndex);
+		auto pos = *itr;
+
+		// XXX Destructive operation
+		terrains->at(aat(pos.y, pos.x, width)).base = Terrain::BaseType::Glassland;
 	}
 
 	//			terrain = Terrain(
