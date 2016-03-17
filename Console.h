@@ -53,11 +53,69 @@ void moveAddCh(WINDOW* window, int y, int x, int n)
 	mvwaddch(window, y, x, n);
 }
 
-void displayWorld(Window* window, const World& world)
+void displayWorldSquare(Window* window, const World& world)
 {
 	for (int col = 0; col < world.height * 3; col++) {
 
 		wmove(window, col, 0);
+
+		for (int row = 0; row < world.width * 3; row++) {
+			switch (col	% 3) {
+			case 0:
+				// unit
+				break;
+			case 1: 
+			{
+				auto terrain = world.terrains[col / 3 * world.width + row / 3];
+
+				switch (row % 3) {
+				case 0: 
+				{
+					int color;
+
+
+					if (terrain.base == Terrain::BaseType::Coast
+							|| terrain.base == Terrain::BaseType::Ocean) {
+						color = 3;
+					}
+					else if (terrain.feature == Terrain::FeatureType::Forest) {
+						color = 2;
+					}
+					else {
+						color = 1;
+					}
+
+					waddch(window, makeChLeftBottom(terrain) | COLOR_PAIR(color));
+				}
+
+					break;
+				case 1:
+					waddch(window, ' ');
+					break;
+				case 2:
+					waddch(window, ' ');
+					break;
+				}
+			}
+				break;
+			case 2:
+				// blank line
+				break;
+			}
+		}
+	}
+
+	wrefresh(window);
+}
+
+void displayWorldHex(Window* window, const World& world)
+{
+	for (int col = 0; col < world.height * 3; col++) {
+
+		if (col % 2 == 0) 
+			wmove(window, col, 0);
+		else 
+			wmove(window, col, 2);
 
 		for (int row = 0; row < world.width * 3; row++) {
 			switch (col	% 3) {

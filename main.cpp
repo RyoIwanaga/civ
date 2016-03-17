@@ -6,7 +6,29 @@
 #include "Terrain.h"
 #include "World.h"
 
-// 自動生成 まずはriku or umi
+
+// 洗濯する楽しみはある
+// 	手段の豊富さ
+// 	でも、操作量が増えないように
+//
+// 戦闘はHomm
+// Unitがスタック
+// 拠点がユニットを毎ターン生み出す？
+// 戦闘はsquare
+// 	主力スタックだけになってしまう
+// 	移動力が同じになってしまう
+//	地形効果が出しづらい
+//	戦果が予測しづらい
+// マルチプレイできない
+//
+// Field をHexにするか？　
+//
+//// TODO
+//
+// カーソルの移動
+// マップのスクロール
+//
+//
 
 int main () 
 {
@@ -19,7 +41,7 @@ int main ()
 			world->width * 2 + world->width - 1,
 			1, 1);
 
-	Console::displayWorld(winMain, *world);
+	Console::displayWorldHex(winMain, *world);
 
 	while (getchar() == ERR) {
 	
