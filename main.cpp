@@ -32,13 +32,13 @@
 
 int main () 
 {
-	auto world = World::createMassive(20, 50, true, 0.3f);
+	auto world = World::createMassive(10, 15, true, 0.3f);
 
 	Console::initialize();
 
 	auto winMain = Console::createWindow(
-			world->height * 2 + world->height - 1,
-			world->width * 2 + world->width - 1,
+			world->height * 2,
+			world->width * 4 + 2,
 			1, 1);
 
 	Console::displayWorldHex(winMain, *world);

@@ -110,27 +110,34 @@ void displayWorldSquare(Window* window, const World& world)
 
 void displayWorldHex(Window* window, const World& world)
 {
-	for (int col = 0; col < world.height * 3; col++) {
+	/* oo  oo
+	 * oo  oo
+	 *   oo  oo
+	 *   oo  oo
+	 * oo  oo
+	 * oo  oo
+	 */
+	for (int y = 0; y < world.height * 2; y++) {
 
-		if (col % 2 == 0) 
-			wmove(window, col, 0);
-		else 
-			wmove(window, col, 2);
+		switch (y % 4) {
+		case 0:
+		case 1:
+			wmove (window, y, 0);
+			break;
+		case 2:
+		case 3:
+			wmove (window, y, 2);
+			break;
+		}
 
-		for (int row = 0; row < world.width * 3; row++) {
-			switch (col	% 3) {
+		for (int x = 0; x < world.width * 4; x++) {
+
+			auto terrain = world.terrains[y / 2 * world.width + x / 4];
+
+			switch (x % 4) {
 			case 0:
-				// unit
-				break;
-			case 1: 
-			{
-				auto terrain = world.terrains[col / 3 * world.width + row / 3];
-
-				switch (row % 3) {
-				case 0: 
-				{
+			case 1: {
 					int color;
-
 
 					if (terrain.base == Terrain::BaseType::Coast
 							|| terrain.base == Terrain::BaseType::Ocean) {
@@ -145,21 +152,20 @@ void displayWorldHex(Window* window, const World& world)
 
 					waddch(window, makeChLeftBottom(terrain) | COLOR_PAIR(color));
 				}
-
-					break;
-				case 1:
-					waddch(window, ' ');
-					break;
-				case 2:
-					waddch(window, ' ');
-					break;
-				}
-			}
 				break;
 			case 2:
-				// blank line
+			case 3:
+				waddch(window, ' ');
 				break;
 			}
+/*
+			if (row % 2 == 0) {
+
+			}
+			else {
+				// TODO
+			} */
+
 		}
 	}
 
