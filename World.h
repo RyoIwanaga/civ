@@ -24,6 +24,7 @@ public:
 	{}
 
 	static Ptr createMassive(int height, int width, bool isCylinder, float landPersentage);
+	static std::list<int> makeListNeighborHexes(int index, int height, int width, bool isCyinder)
 };
 
 class Pos
