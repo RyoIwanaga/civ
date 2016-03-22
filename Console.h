@@ -7,7 +7,111 @@ namespace Console {
 
 #include <curses.h>
 
+
+class Window
+{
+public:
+	typedef std::shared_ptr<Window> Ptr;
+
+	WINDOW* window;
+	int height;
+	int width;
+	int y;
+	int x;
+
+	Window(int h, int w, int y, int x) :
+		height(h),
+		width(w),
+		y(y),
+		x(x)
+	{
+		window = newwin(height, width, y, x);
+	}
+
+	~Window()
+	{
+		delwin(window);
+	}
+
+	static Ptr create(int h, int w, int y, int x)
+	{
+		return std::make_shared<Window>(h, w, y, x);
+	}
+};
+
 char makeChLeftBottom(const Terrain& terrain);
+
+class WindowWorld : public Window
+{
+public:
+	typedef std::shared_ptr<WindowWorld> Ptr;
+
+	WindowWorld(int h, int w, int y, int x) :
+		Window(h, w, y, x)
+	{}
+
+	static Ptr create(int h, int w, int y, int x)
+	{
+		return std::make_shared<WindowWorld>(h, w, y, x);
+	}
+
+	void display(const World& world)
+	{
+		/* oo  oo
+		 * oo  oo
+		 *   oo  oo
+		 *   oo  oo
+		 * oo  oo
+		 * oo  oo
+		 */
+		for (int y = 0; y < world.height * 2; y++) {
+
+			switch (y % 4) {
+			case 0:
+			case 1:
+				wmove (window, y, 0);
+				break;
+			case 2:
+			case 3:
+				wmove (window, y, 2);
+				break;
+			}
+
+			for (int x = 0; x < world.width * 4; x++) {
+
+				auto terrain = world.terrains[y / 2 * world.width + x / 4];
+
+				switch (x % 4) {
+				case 0:
+				case 1: {
+							int color;
+
+							if (terrain.base == Terrain::BaseType::Coast
+									|| terrain.base == Terrain::BaseType::Ocean) {
+								color = 3;
+							}
+							else if (terrain.feature == Terrain::FeatureType::Forest) {
+								color = 2;
+							}
+							else {
+								color = 1;
+							}
+
+							waddch(window, makeChLeftBottom(terrain) | COLOR_PAIR(color));
+						}
+						break;
+				case 2:
+				case 3:
+						waddch(window, ' ');
+						break;
+				}
+			}
+		}
+
+		wrefresh(window);
+	}
+};
+
 
 void initialize()
 {
@@ -36,140 +140,6 @@ void finalize ()
 {
 	// Before exiting. Before the program is terminated, endwin() must be called to restore the terminal settings. 
 	endwin();
-}
-
-typedef WINDOW Window;
-
-Window* createWindow(int height, int width, int y, int x)
-{
-	auto win = newwin(height, width, y, x);
-	wrefresh(win);
-
-	return win;
-}
-
-void moveAddCh(WINDOW* window, int y, int x, int n)
-{
-	mvwaddch(window, y, x, n);
-}
-
-void displayWorldSquare(Window* window, const World& world)
-{
-	for (int col = 0; col < world.height * 3; col++) {
-
-		wmove(window, col, 0);
-
-		for (int row = 0; row < world.width * 3; row++) {
-			switch (col	% 3) {
-			case 0:
-				// unit
-				break;
-			case 1: 
-			{
-				auto terrain = world.terrains[col / 3 * world.width + row / 3];
-
-				switch (row % 3) {
-				case 0: 
-				{
-					int color;
-
-
-					if (terrain.base == Terrain::BaseType::Coast
-							|| terrain.base == Terrain::BaseType::Ocean) {
-						color = 3;
-					}
-					else if (terrain.feature == Terrain::FeatureType::Forest) {
-						color = 2;
-					}
-					else {
-						color = 1;
-					}
-
-					waddch(window, makeChLeftBottom(terrain) | COLOR_PAIR(color));
-				}
-
-					break;
-				case 1:
-					waddch(window, ' ');
-					break;
-				case 2:
-					waddch(window, ' ');
-					break;
-				}
-			}
-				break;
-			case 2:
-				// blank line
-				break;
-			}
-		}
-	}
-
-	wrefresh(window);
-}
-
-void displayWorldHex(Window* window, const World& world)
-{
-	/* oo  oo
-	 * oo  oo
-	 *   oo  oo
-	 *   oo  oo
-	 * oo  oo
-	 * oo  oo
-	 */
-	for (int y = 0; y < world.height * 2; y++) {
-
-		switch (y % 4) {
-		case 0:
-		case 1:
-			wmove (window, y, 0);
-			break;
-		case 2:
-		case 3:
-			wmove (window, y, 2);
-			break;
-		}
-
-		for (int x = 0; x < world.width * 4; x++) {
-
-			auto terrain = world.terrains[y / 2 * world.width + x / 4];
-
-			switch (x % 4) {
-			case 0:
-			case 1: {
-					int color;
-
-					if (terrain.base == Terrain::BaseType::Coast
-							|| terrain.base == Terrain::BaseType::Ocean) {
-						color = 3;
-					}
-					else if (terrain.feature == Terrain::FeatureType::Forest) {
-						color = 2;
-					}
-					else {
-						color = 1;
-					}
-
-					waddch(window, makeChLeftBottom(terrain) | COLOR_PAIR(color));
-				}
-				break;
-			case 2:
-			case 3:
-				waddch(window, ' ');
-				break;
-			}
-/*
-			if (row % 2 == 0) {
-
-			}
-			else {
-				// TODO
-			} */
-
-		}
-	}
-
-	wrefresh(window);
 }
 
 char makeChLeftBottom(const Terrain& terrain)

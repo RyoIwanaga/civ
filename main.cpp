@@ -37,38 +37,26 @@ int main ()
 
 	Console::initialize();
 
-	auto winMain = Console::createWindow(
+	auto winWorld = Console::WindowWorld::create(
 			world->height * 2,
 			world->width * 4 + 2,
-			1, 1);
+			2, 2);
 
-	Console::displayWorldHex(winMain, *world);
-
-	wmove(winMain, 0, 0);
-	wrefresh(winMain);
-
-	int cursolX = 0;
-	int cursolY = 0;
 	bool isEndGame = false;
 
 	for (;;) {
-		wmove(winMain, cursolY, cursolX);
-		wrefresh(winMain);
+		winWorld->display(*world);
 
 		int ch = getchar();
 	
 		switch (ch) {
 		case 'k':
-			cursolY --;
 			break;
 		case 'j':
-			cursolY ++;
 			break;
 		case 'h':
-			cursolX --;
 			break;
 		case 'l':
-			cursolX ++;
 			break;
 		default:
 			isEndGame = true;
