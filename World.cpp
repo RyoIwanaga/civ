@@ -43,6 +43,15 @@ World::Ptr World::createMassive(int height, int width, bool isCylinder, float la
 	for (int n = 1; n < land; n++) {
 		auto neighbors = Hex::neighbors(target, height, width, isCylinder);
 		for (auto n : neighbors) {
+			auto y = n / width;
+			auto x = n % width;
+
+			if (y <= 0 
+					|| height - 1 <= y 
+					|| x <= 1
+					|| width - 2 <= x)
+				continue;
+
 			// add coast
 			if (terrains->at(n).base == Terrain::BaseType::None) {
 				coasts.insert(n);

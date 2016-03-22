@@ -33,7 +33,7 @@
 
 int main () 
 {
-	auto world = World::createMassive(10, 15, true, 0.3f);
+	auto world = World::createMassive(10, 15, true, 0.5f);
 
 	Console::initialize();
 
