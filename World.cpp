@@ -1,8 +1,10 @@
 #include "World.h"
+#include "Hex.h"
 
 #include <algorithm>
 #include <cassert>
 #include <list>
+#include <set>
 #include <iterator>
 #include <random>
 
@@ -10,7 +12,8 @@
 
 
 std::list<int> makeListInRange (int middle, int addSub, int bottom, int upper);
-std::list<Pos> makeListCoastPositions(std::vector<Terrain>* terrains, int height, int width, bool isCylinder);
+//std::list<Pos> makeListCoastPositions(std::vector<Terrain>* terrains, int height, int width, bool isCylinder);
+
 
 int aat (int y, int x, int width) 
 {
@@ -26,28 +29,33 @@ World::Ptr World::createMassive(int height, int width, bool isCylinder, float la
 
 	auto world = std::make_shared<World>(height, width, isCylinder);
 	auto terrains = &(world->terrains);
-	auto firstY = height / 2;
-	auto firstX = width / 2;
+	auto target = height / 2 * width + width / 2;
+	std::set<int> coasts;
 
 	terrains->resize(worldSize);
-	terrains->at(aat(firstY, firstX, width)) = Terrain(
+	terrains->at(target) = Terrain(
 			Terrain::BaseType::Glassland,
 			Terrain::VerticalType::Flatland,
 			Terrain::FeatureType::None);
 
-	for (int n = 0; n < land; n++) {
-		auto coasts = makeListCoastPositions(terrains, height, width, isCylinder);
 
-		if (coasts.size() == 0)
-			break;
-
+	// already placed 1
+	for (int n = 1; n < land; n++) {
+		auto neighbors = Hex::neighbors(target, height, width, isCylinder);
+		for (auto n : neighbors) {
+			// add coast
+			if (terrains->at(n).base == Terrain::BaseType::None) {
+				coasts.insert(n);
+			}	
+		}
 		auto targetIndex = rnd() % coasts.size();
 		auto itr = coasts.begin();
 		std::advance(itr, targetIndex);
-		auto pos = *itr;
+		target = *itr;
 
 		// XXX Destructive operation
-		terrains->at(aat(pos.y, pos.x, width)).base = Terrain::BaseType::Glassland;
+		terrains->at(target).base = Terrain::BaseType::Glassland;
+
 	}
 
 	for (int i = 0; i < worldSize; i++) {
@@ -64,10 +72,11 @@ World::Ptr World::createMassive(int height, int width, bool isCylinder, float la
 	return world;
 }
 
+/*
 
-std::list<Pos> makeListCoastPositions(std::vector<Terrain>* terrains, int height, int width, bool isCylinder) // TODO Cylinder
+std::set<int> makeSetCoastPositions(std::vector<Terrain>* terrains, int height, int width, bool isCylinder)
 {
-	std::list<Pos> lst;
+	std::set<int> coasts;
 
 	// For each square
 	for (int y = 2; y < height - 2; y++) {
@@ -102,6 +111,7 @@ LABEL_FOUND_COAST:
 
 	return lst;
 }
+*/
 
 
 std::list<int> makeListInRange (int middle, int addSub, int bottom, int upper)
