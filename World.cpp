@@ -10,6 +10,8 @@
 
 World::Ptr World::createMassive(int height, int width, bool isCylinder, float landPersentage)
 {
+	assert (height % 2 == 0);
+	
 	int worldSize = height * width;
 	int land = worldSize * landPersentage;
 
@@ -29,7 +31,7 @@ World::Ptr World::createMassive(int height, int width, bool isCylinder, float la
 
 	// already placed 1
 	for (int n = 1; n < land; n++) {
-		auto neighbors = Hex::neighbors(target, height, width, isCylinder);
+		auto neighbors = Hex::neighbors(target, height, width, false);
 		for (auto n : neighbors) {
 			auto y = n / width;
 			auto x = n % width;

@@ -44,8 +44,38 @@ int main ()
 
 	Console::displayWorldHex(winMain, *world);
 
-	while (getchar() == ERR) {
+	wmove(winMain, 0, 0);
+	wrefresh(winMain);
+
+	int cursolX = 0;
+	int cursolY = 0;
+	bool isEndGame = false;
+
+	for (;;) {
+		wmove(winMain, cursolY, cursolX);
+		wrefresh(winMain);
+
+		int ch = getchar();
 	
+		switch (ch) {
+		case 'k':
+			cursolY --;
+			break;
+		case 'j':
+			cursolY ++;
+			break;
+		case 'h':
+			cursolX --;
+			break;
+		case 'l':
+			cursolX ++;
+			break;
+		default:
+			isEndGame = true;
+		}
+
+		if (isEndGame)
+			break;
 	}
 
 	Console::finalize();
