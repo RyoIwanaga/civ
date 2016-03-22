@@ -3,6 +3,7 @@
 //#include <curses.h>
 
 #include "Console.h"
+#include "Window.h"
 #include "Terrain.h"
 #include "World.h"
 
@@ -25,8 +26,7 @@
 //
 //// TODO
 //
-// Hexverの陸地生成
-// カーソルの移動
+// automake ソース整理
 // マップのスクロール
 //
 //
