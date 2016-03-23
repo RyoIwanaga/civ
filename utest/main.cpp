@@ -6,10 +6,75 @@
 #include <cppunit/TestRunner.h>
 #include <cppunit/extensions/HelperMacros.h>
 
+// targets
+#include "../Util.h"
 #include "../Hex.h"
 
 #include <stdio.h>
 #include <set>
+
+/*** Template
+ 
+class UtilTest : public CPPUNIT_NS::TestFixture
+{
+	CPPUNIT_TEST_SUITE(UtilTest);
+	CPPUNIT_TEST(addCircle);
+	CPPUNIT_TEST_SUITE_END();
+
+protected:
+
+public:
+	void setUp()
+	{
+	}
+	void testDown()
+	{
+	}
+};
+
+CPPUNIT_TEST_SUITE_REGISTRATION(UtilTest);
+  */
+
+class UtilTest : public CPPUNIT_NS::TestFixture
+{
+	CPPUNIT_TEST_SUITE(UtilTest);
+	CPPUNIT_TEST(addCircle);
+	CPPUNIT_TEST_SUITE_END();
+
+protected:
+	void addCircle()
+	{
+		CPPUNIT_ASSERT_EQUAL(Util::addCircle(0, 1, 5), 1);
+		CPPUNIT_ASSERT_EQUAL(Util::addCircle(0, 6, 5), 0);
+		CPPUNIT_ASSERT_EQUAL(Util::addCircle(3, 5, 5), 2);
+		CPPUNIT_ASSERT_EQUAL(Util::addCircle(3, 12, 5), 3);
+		
+		CPPUNIT_ASSERT_EQUAL(Util::addCircle(0, 1, 4, -1), 1);
+		CPPUNIT_ASSERT_EQUAL(Util::addCircle(0, 5, 4, -1), -1);
+		CPPUNIT_ASSERT_EQUAL(Util::addCircle(0, 12, 4, -1), 0);
+
+		CPPUNIT_ASSERT_EQUAL(Util::addCircle(3, -1, 5), 2);
+		CPPUNIT_ASSERT_EQUAL(Util::addCircle(3, -6, 5), 3);
+		CPPUNIT_ASSERT_EQUAL(Util::addCircle(3, -12, 5), 3);
+
+		CPPUNIT_ASSERT_EQUAL(Util::addCircle(0, -1, 3, -1), -1);
+		CPPUNIT_ASSERT_EQUAL(Util::addCircle(0, -5, 3, -1), 0);
+		CPPUNIT_ASSERT_EQUAL(Util::addCircle(0, -10, 3, -1), 0);
+
+		//CPPUNIT_ASSERT_EQUAL(Util::addCircle(3, -2, 5), 1);
+		//CPPUNIT_ASSERT_EQUAL(Util::addCircle(3, -5, 5), 4);
+	}
+
+public:
+	void setUp()
+	{
+	}
+	void testDown()
+	{
+	}
+};
+
+CPPUNIT_TEST_SUITE_REGISTRATION(UtilTest);
 
 class HexTest : public CPPUNIT_NS::TestFixture
 {

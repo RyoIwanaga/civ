@@ -33,14 +33,23 @@
 
 int main () 
 {
-	auto world = World::createMassive(10, 15, true, 0.5f);
+	//auto world = World::createMassive(10, 15, true, 0.5f);
+	auto world = World::createMassive(6, 10, true, 0.5f);
 
 	Console::initialize();
 
+//	auto winWorld = Console::WindowWorld::create(
+//			world->height * 2,
+//			world->width * 4 + 2,
+//			2, 2,
+//			world->height, world->width);
 	auto winWorld = Console::WindowWorld::create(
-			world->height * 2,
-			world->width * 4 + 2,
-			2, 2);
+			// size
+			20, 50,
+			// upper left
+			2, 2,
+			// world size
+			world->height, world->width);
 
 	bool isEndGame = false;
 
@@ -51,6 +60,7 @@ int main ()
 	
 		switch (ch) {
 		case 'k':
+			//winWorld->y--;
 			break;
 		case 'j':
 			break;
