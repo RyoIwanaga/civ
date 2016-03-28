@@ -22,18 +22,15 @@
 //	戦果が予測しづらい
 // マルチプレイできない
 //
-// Field をHexにするか？　
-//
 //// TODO
 //
-// automake ソース整理
 // マップのスクロール
+// automake ソース整理
 //
 //
 
 int main () 
 {
-	//auto world = World::createMassive(10, 15, true, 0.5f);
 	auto world = World::createMassive(6, 10, true, 0.5f);
 
 	Console::initialize();
@@ -45,7 +42,8 @@ int main ()
 //			world->height, world->width);
 	auto winWorld = Console::WindowWorld::create(
 			// size
-			20, 50,
+			10, 12,
+			//9, 13,
 			// upper left
 			2, 2,
 			// world size

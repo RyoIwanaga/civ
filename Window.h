@@ -2,6 +2,7 @@
 #define _Console__Window_h_
 
 #include "Console.h"
+#include "Util.h"
 
 namespace Console {
 
@@ -40,20 +41,25 @@ public:
 
 class WindowWorld : public Window
 {
+protected:
+		static const int HEX_HEIGHT = 2;
+		static const int HEX_WIDTH = 2;
+		static const int HEX_SPACE = 2;
+
 public:
 	typedef std::shared_ptr<WindowWorld> Ptr;
 
-	int worldHeight;
-	int worldWidth;
+	// cursol position
 	int x, y;
 
 	WindowWorld(int h, int w, int y, int x, int wHeight, int wWidth) :
-		Window(h, w, y, x),
-		worldHeight(wHeight),
-		worldWidth(wWidth),
+		Window(h * HEX_HEIGHT, w * (HEX_WIDTH + HEX_SPACE) + HEX_SPACE, y, x),
 		x(wWidth / 2),
 		y(wHeight / 2)
-	{}
+	{
+		assert (h % 2 == 0);
+		assert (w % 2 == 0);
+	}
 
 	static Ptr create(int h, int w, int y, int x, int wHeight, int wWidth)
 	{
@@ -68,7 +74,56 @@ public:
 		 *   oo  oo
 		 * oo  oo
 		 * oo  oo
+		 *   oo  oo
+		 *   oo  oo
 		 */
+		int windowMiddleY = this->height / 2;
+		int windowMiddleX = this->width / 2;
+		int isTargetEven = this->y % 2 == 0;
+
+
+		for (int yy = 0; yy < this->height; yy++) {
+
+			int relativeY = yy / HEX_HEIGHT - windowMiddleY;
+			int worldY = Util::addCircle(this->y, relativeY, world.height - 1);
+			bool isEvenWorldY = worldY % 2 == 0;
+			bool isThisEven = isTargetEven ? isEvenWorldY : ! isEvenWorldY;
+
+			switch (yy % 4) {
+			case 0:
+			case 1:
+				wmove (window, yy, 0);
+				break;
+			case 2:
+			case 3:
+				wmove (window, yy, HEX_SPACE);
+				break;
+			}
+
+			for (int xx = 0; xx < (this->width - HEX_SPACE) / (HEX_WIDTH + HEX_WIDTH); xx++) {
+
+				int xxx = isTargetEven ? xx : isThisEven ? xx : xx + 1;
+				int worldX = Util::addCircle(this->x, xxx - windowMiddleX, world.width - 1);
+				auto terrain = world.terrains[worldY * world.width + worldX];
+
+				waddch(this->window, 'a');
+				waddch(this->window, 'a');
+				waddch(this->window, ' ');
+				waddch(this->window, ' ');
+
+				
+
+				//		waddch(window, makeChLeftBottom(terrain) | COLOR_PAIR(color));
+
+			}
+		}
+
+		wmove (window, 
+				this->height / 2 - HEX_HEIGHT, 
+				(this->width - HEX_SPACE) / 2 - HEX_WIDTH - HEX_SPACE);
+		wrefresh(this->window);
+
+		/*
 		for (int y = 0; y < world.height * 2; y++) {
 
 			switch (y % 4) {
@@ -114,6 +169,7 @@ public:
 		}
 
 		wrefresh(window);
+	*/
 	}
 };
 
