@@ -51,8 +51,10 @@ public:
 
 	// cursol position
 	int x, y;
+	int worldHeight, worldWidth;
+	bool isWorldCylinder;
 
-	WindowWorld(int h, int w, int y, int x, int worldHeight, int worldWidth) :
+	WindowWorld(int h, int w, int y, int x, int worldHeight, int worldWidth, bool isCylinder) :
 		Window(
 				h > worldHeight ?
 					worldHeight * HEX_HEIGHT :
@@ -62,15 +64,18 @@ public:
 					w * (HEX_WIDTH + HEX_SPACE) + HEX_SPACE, 
 				y, x),
 		x(worldWidth / 2),
-		y(worldHeight / 2)
+		y(worldHeight / 2),
+		worldHeight(worldHeight),
+		worldWidth(worldWidth),
+		isWorldCylinder(isCylinder)
 	{
 		assert (h % 2 == 0);
 		assert (w % 2 == 0);
 	}
 
-	static Ptr create(int h, int w, int y, int x, int wHeight, int wWidth)
+	static Ptr create(int h, int w, int y, int x, int wHeight, int wWidth, bool isCylinder)
 	{
-		return std::make_shared<WindowWorld>(h, w, y, x, wHeight, wWidth);
+		return std::make_shared<WindowWorld>(h, w, y, x, wHeight, wWidth, isCylinder);
 	}
 
 protected: 
@@ -85,6 +90,53 @@ protected:
 	}
 
 public:
+	//// Move Cursol ////
+	
+	void moveLeft() 
+	{
+		x = Util::addCircle(x, -1, worldWidth - 1);
+	}
+	void moveRight() 
+	{ 
+		x = Util::addCircle(x, 1, worldWidth - 1);
+	}
+
+	void moveLeftUp()
+	{
+		y = Util::addCircle(y, -1, worldHeight - 1);
+
+		if (y % 2 == 1) 
+			x = Util::addCircle(x, -1, worldWidth - 1);
+	}
+
+	void moveRightUp()
+	{
+		y = Util::addCircle(y, -1, worldHeight - 1);
+
+		if (y % 2 == 0) 
+			x = Util::addCircle(x, 1, worldWidth - 1);
+	}
+
+	void moveRightDown()
+	{
+		y = Util::addCircle(y, 1, worldHeight - 1);
+
+		if (y % 2 == 0) 
+			x = Util::addCircle(x, 1, worldWidth - 1);
+	
+	}
+
+	void moveLeftDown()
+	{
+		y = Util::addCircle(y, 1, worldHeight - 1);
+
+		if (y % 2 == 1) 
+			x = Util::addCircle(x, -1, worldWidth - 1);
+	
+	}
+	////
+
+
 	void display(const World& world)
 	{
 		/* oo  oo

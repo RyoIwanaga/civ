@@ -40,14 +40,9 @@ int main ()
 //			world->width * 4 + 2,
 //			2, 2,
 //			world->height, world->width);
-	auto winWorld = Console::WindowWorld::create(
-			// size
-			12, 22,
-			//9, 13,
-			// upper left
-			2, 2,
+	auto winWorld = Console::WindowWorld::create(12, 22, 2, 2,
 			// world size
-			world->height, world->width);
+			world->height, world->width, world->isCylinder);
 
 	bool isEndGame = false;
 
@@ -57,16 +52,31 @@ int main ()
 		int ch = getchar();
 	
 		switch (ch) {
+		case 'y':
+			winWorld->moveLeftUp();
+			break;
+		case 'u':
+			winWorld->moveRightUp();
+			break;
+		case 'b':
+			winWorld->moveLeftDown();
+			break;
+		case 'n':
+			winWorld->moveRightDown();
+			break;
 		case 'k':
-			//winWorld->y--;
+			winWorld->moveLeftUp();
 			break;
 		case 'j':
+			winWorld->moveRightDown();
 			break;
 		case 'h':
+			winWorld->moveLeft();
 			break;
 		case 'l':
+			winWorld->moveRight();
 			break;
-		default:
+		case 'q':
 			isEndGame = true;
 		}
 
