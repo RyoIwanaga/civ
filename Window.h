@@ -52,10 +52,17 @@ public:
 	// cursol position
 	int x, y;
 
-	WindowWorld(int h, int w, int y, int x, int wHeight, int wWidth) :
-		Window(h * HEX_HEIGHT, w * (HEX_WIDTH + HEX_SPACE) + HEX_SPACE, y, x),
-		x(wWidth / 2),
-		y(wHeight / 2)
+	WindowWorld(int h, int w, int y, int x, int worldHeight, int worldWidth) :
+		Window(
+				h > worldHeight ?
+					worldHeight * HEX_HEIGHT :
+					h * HEX_HEIGHT,
+				w > worldWidth ?
+					worldWidth * (HEX_WIDTH + HEX_SPACE) + HEX_SPACE :
+					w * (HEX_WIDTH + HEX_SPACE) + HEX_SPACE, 
+				y, x),
+		x(worldWidth / 2),
+		y(worldHeight / 2)
 	{
 		assert (h % 2 == 0);
 		assert (w % 2 == 0);
@@ -66,6 +73,18 @@ public:
 		return std::make_shared<WindowWorld>(h, w, y, x, wHeight, wWidth);
 	}
 
+protected: 
+	int getHexGridHeight()
+	{
+		return this->height / HEX_HEIGHT;
+	}
+
+	int getHexGridWidth()
+	{
+		return (this->width - HEX_SPACE) / (HEX_WIDTH + HEX_SPACE);
+	}
+
+public:
 	void display(const World& world)
 	{
 		/* oo  oo
@@ -77,14 +96,11 @@ public:
 		 *   oo  oo
 		 *   oo  oo
 		 */
-		int windowMiddleY = this->height / 2;
-		int windowMiddleX = this->width / 2;
 		int isTargetEven = this->y % 2 == 0;
-
 
 		for (int yy = 0; yy < this->height; yy++) {
 
-			int relativeY = yy / HEX_HEIGHT - windowMiddleY;
+			int relativeY = yy / HEX_HEIGHT - this->getHexGridHeight() / 2;
 			int worldY = Util::addCircle(this->y, relativeY, world.height - 1);
 			bool isEvenWorldY = worldY % 2 == 0;
 			bool isThisEven = isTargetEven ? isEvenWorldY : ! isEvenWorldY;
@@ -100,14 +116,26 @@ public:
 				break;
 			}
 
-			for (int xx = 0; xx < (this->width - HEX_SPACE) / (HEX_WIDTH + HEX_WIDTH); xx++) {
+			for (int xx = 0; xx < this->getHexGridWidth(); xx++) {
 
 				int xxx = isTargetEven ? xx : isThisEven ? xx : xx + 1;
-				int worldX = Util::addCircle(this->x, xxx - windowMiddleX, world.width - 1);
+				int worldX = Util::addCircle(this->x, xxx - this->getHexGridWidth() / 2, world.width - 1);
 				auto terrain = world.terrains[worldY * world.width + worldX];
 
-				waddch(this->window, 'a');
-				waddch(this->window, 'a');
+				switch (yy % HEX_HEIGHT) {
+				case 0:
+					// TODO
+					waddch(this->window, ' ');
+					waddch(this->window, ' ');
+					break;
+				case 1:
+					waddch(window, makeChLeftBottom(terrain));
+					waddch(this->window, ' ');
+					break;
+				default:
+					assert(false);
+				}
+
 				waddch(this->window, ' ');
 				waddch(this->window, ' ');
 
@@ -119,7 +147,7 @@ public:
 		}
 
 		wmove (window, 
-				this->height / 2 - HEX_HEIGHT, 
+				this->height / 2 - 1, 
 				(this->width - HEX_SPACE) / 2 - HEX_WIDTH - HEX_SPACE);
 		wrefresh(this->window);
 

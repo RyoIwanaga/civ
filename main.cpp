@@ -42,7 +42,7 @@ int main ()
 //			world->height, world->width);
 	auto winWorld = Console::WindowWorld::create(
 			// size
-			10, 12,
+			10, 22,
 			//9, 13,
 			// upper left
 			2, 2,
