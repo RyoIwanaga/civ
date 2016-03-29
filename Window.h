@@ -147,7 +147,7 @@ public:
 		}
 
 		wmove (window, 
-				this->height / 2 - 1, 
+				this->getHexGridHeight() - 3,
 				(this->width - HEX_SPACE) / 2 - HEX_WIDTH - HEX_SPACE);
 		wrefresh(this->window);
 

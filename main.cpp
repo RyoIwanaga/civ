@@ -31,7 +31,7 @@
 
 int main () 
 {
-	auto world = World::createMassive(6, 10, true, 0.5f);
+	auto world = World::createMassive(16, 30, true, 0.5f);
 
 	Console::initialize();
 
@@ -42,7 +42,7 @@ int main ()
 //			world->height, world->width);
 	auto winWorld = Console::WindowWorld::create(
 			// size
-			10, 22,
+			12, 22,
 			//9, 13,
 			// upper left
 			2, 2,
