@@ -2,8 +2,8 @@
 #include <vector>
 //#include <curses.h>
 
-#include "Console.h"
-#include "Window.h"
+#include "Console/Console.h"
+#include "Console/Window.h"
 #include "Terrain.h"
 #include "World.h"
 
@@ -26,6 +26,7 @@
 //
 // マップのスクロール
 // automake ソース整理
+// console namespace
 //
 //
 
@@ -88,3 +89,45 @@ int main ()
 
 	return 0;	
 }
+
+
+
+
+/*
+ * 1 2 3 4
+ *  5 6 7 8
+ * a b c d
+ *  e f g h
+ *
+ *
+ *
+ *  5 5 x 6 6 x 7 7
+ * 5 5 5 6 6 6 7 7 7
+ *  5 5 x 6 6 x 7 7
+ * a x b b x c c
+ *  a b b b c c c
+ * a x b b x c c
+ *
+ *
+ *
+ *      6 6 
+ *     6 6 6 
+ *  5 5 6 6
+ * 5 5 5
+ *  5 5
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */

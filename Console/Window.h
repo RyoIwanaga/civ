@@ -19,25 +19,31 @@ public:
 	int startY;
 	int startX;
 
-	Window(int h, int w, int y, int x) :
-		height(h),
-		width(w),
-		startY(y),
-		startX(x)
-	{
-		window = newwin(height, width, y, x);
-	}
+	Window(int h, int w, int y, int x);
+	~Window();
 
-	~Window()
-	{
-		delwin(window);
-	}
-
-	static Ptr create(int h, int w, int y, int x)
-	{
-		return std::make_shared<Window>(h, w, y, x);
-	}
+	static Ptr create(int h, int w, int y, int x);
 };
+
+Window::Window(int h, int w, int y, int x) :
+	height(h),
+	width(w),
+	startY(y),
+	startX(x)
+{
+	window = newwin(height, width, y, x);
+}
+
+Window::~Window()
+{
+	delwin(window);
+}
+
+Window::Ptr Window::create(int h, int w, int y, int x)
+{
+	return std::make_shared<Window>(h, w, y, x);
+}
+
 
 class WindowWorld : public Window
 {
@@ -177,7 +183,7 @@ public:
 				switch (yy % HEX_HEIGHT) {
 				case 0:
 					// TODO
-					waddch(this->window, ' ');
+//					waddch(window, makeChUnit(terrain));
 					waddch(this->window, ' ');
 					break;
 				case 1:

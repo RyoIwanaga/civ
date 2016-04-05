@@ -1,7 +1,11 @@
 #ifndef _Console_h_
 #define _Console_h_
 
-#include "World.h"
+#include <cassert>
+#include "../World.h"
+#include "../Util.h"
+
+//#include "Window.h"
 
 namespace Console {
 

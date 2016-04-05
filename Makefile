@@ -19,7 +19,7 @@ OBJS=
 .PHONY: all
 all:
 #	${CC} ${CFLAGS} 
-	${CXX} ${CPP11} ${CFLAGS} ${CURSES} main.cpp World.cpp
+	${CXX} ${CPP11} ${CFLAGS} ${CURSES} main.cpp World.cpp # Console/Window.cpp
 	./a.out
 
 .PHONY: debug
