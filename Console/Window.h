@@ -13,6 +13,7 @@ char makeChLeftBottom(const Terrain& terrain);
 	
 class Window
 {
+	REU__PROPERTY(WINDOW*, window, Window);
 	REU__PROPERTY(int, height, Height);
 	REU__PROPERTY(int, width, Width);
 	REU__PROPERTY(int, startY, StartY);
@@ -20,8 +21,6 @@ class Window
 
 public:
 	typedef std::shared_ptr<Window> Ptr;
-
-	WINDOW* window;
 
 	Window(int h, int w, int y, int x);
 	virtual ~Window();
@@ -150,11 +149,11 @@ public:
 			switch (yy % 4) {
 			case 0:
 			case 1:
-				wmove (window, yy, 0);
+				wmove (getWindow(), yy, 0);
 				break;
 			case 2:
 			case 3:
-				wmove (window, yy, HEX_SPACE);
+				wmove (getWindow(), yy, HEX_SPACE);
 				break;
 			}
 
@@ -167,31 +166,31 @@ public:
 				switch (yy % HEX_HEIGHT) {
 				case 0:
 					// TODO
-//					waddch(window, makeChUnit(terrain));
-					waddch(this->window, ' ');
+//					waddch(getWindow, makeChUnit(terrain));
+					waddch(getWindow(), ' ');
 					break;
 				case 1:
-					waddch(window, makeChLeftBottom(terrain));
-					waddch(this->window, ' ');
+					waddch(getWindow(), makeChLeftBottom(terrain));
+					waddch(getWindow(), ' ');
 					break;
 				default:
 					assert(false);
 				}
 
-				waddch(this->window, ' ');
-				waddch(this->window, ' ');
+				waddch(getWindow(), ' ');
+				waddch(getWindow(), ' ');
 
 				
 
-				//		waddch(window, makeChLeftBottom(terrain) | COLOR_PAIR(color));
+				//		waddch(getWindow, makeChLeftBottom(terrain) | COLOR_PAIR(color));
 
 			}
 		}
 
-		wmove (window, 
+		wmove (getWindow(), 
 				this->getHexGridHeight() - 3,
 				(getWidth() - HEX_SPACE) / 2 - HEX_WIDTH - HEX_SPACE);
-		wrefresh(this->window);
+		wrefresh(getWindow());
 
 		/*
 		for (int y = 0; y < world.height * 2; y++) {
@@ -199,11 +198,11 @@ public:
 			switch (y % 4) {
 			case 0:
 			case 1:
-				wmove (window, y, 0);
+				wmove (getWindow, y, 0);
 				break;
 			case 2:
 			case 3:
-				wmove (window, y, 2);
+				wmove (getWindow, y, 2);
 				break;
 			}
 
@@ -227,18 +226,18 @@ public:
 								color = 1;
 							}
 
-							waddch(window, makeChLeftBottom(terrain) | COLOR_PAIR(color));
+							waddch(getWindow, makeChLeftBottom(terrain) | COLOR_PAIR(color));
 						}
 						break;
 				case 2:
 				case 3:
-						waddch(window, ' ');
+						waddch(getWindow, ' ');
 						break;
 				}
 			}
 		}
 
-		wrefresh(window);
+		wrefresh(getWindow);
 	*/
 	}
 };
@@ -253,12 +252,12 @@ Window::Window(int h, int w, int y, int x) :
 	startY(y),
 	startX(x)
 {
-	window = newwin(height, width, y, x);
+	this->window = newwin(height, width, y, x);
 }
 
 Window::~Window()
 {
-	delwin(window);
+	delwin(this->window);
 }
 
 Window::Ptr Window::create(int h, int w, int y, int x)
