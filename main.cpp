@@ -2,10 +2,10 @@
 #include <vector>
 //#include <curses.h>
 
+#include "World.h"
 #include "Console/Console.h"
 #include "Console/Window.h"
 #include "Terrain.h"
-#include "World.h"
 
 
 // 洗濯する楽しみはある
@@ -24,7 +24,9 @@
 //
 //// TODO
 //
-// マップのスクロール
+// unit no hyouji
+// 
+//
 // automake ソース整理
 // console namespace
 //

@@ -12,19 +12,19 @@ CFLAGS=-Wall -O
 CPP11=-std=c++11
 CURSES=-lncurses
 
-OBJS=
+OBJS=World.cpp  main.cpp
 
 ### Target ###
 
 .PHONY: all
 all:
 #	${CC} ${CFLAGS} 
-	${CXX} ${CPP11} ${CFLAGS} ${CURSES} main.cpp World.cpp # Console/Window.cpp
+	${CXX} ${CPP11} ${CFLAGS} ${CURSES} ${OBJS}
 	./a.out
 
 .PHONY: debug
 debug:
-	${CXX} ${CPP11} ${CFLAGS} ${CURSES} main.cpp World.cpp -g -O0
+	${CXX} ${CPP11} ${CFLAGS} ${CURSES} ${OBJS} -g -O0
 	lldb a.out
 
 .PHONY: clean

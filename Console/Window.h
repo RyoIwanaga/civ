@@ -1,8 +1,11 @@
 #ifndef _Console__Window_h_
 #define _Console__Window_h_
 
+#include "../reu.h"
 #include "Console.h"
 #include "Util.h"
+
+
 
 namespace Console {
 
@@ -10,47 +13,28 @@ char makeChLeftBottom(const Terrain& terrain);
 	
 class Window
 {
+	REU__PROPERTY(int, height, Height);
+	REU__PROPERTY(int, width, Width);
+	REU__PROPERTY(int, startY, StartY);
+	REU__PROPERTY(int, startX, StartX);
+
 public:
 	typedef std::shared_ptr<Window> Ptr;
 
 	WINDOW* window;
-	int height;
-	int width;
-	int startY;
-	int startX;
 
 	Window(int h, int w, int y, int x);
-	~Window();
+	virtual ~Window();
 
 	static Ptr create(int h, int w, int y, int x);
 };
 
-Window::Window(int h, int w, int y, int x) :
-	height(h),
-	width(w),
-	startY(y),
-	startX(x)
-{
-	window = newwin(height, width, y, x);
-}
-
-Window::~Window()
-{
-	delwin(window);
-}
-
-Window::Ptr Window::create(int h, int w, int y, int x)
-{
-	return std::make_shared<Window>(h, w, y, x);
-}
-
-
 class WindowWorld : public Window
 {
 protected:
-		static const int HEX_HEIGHT = 2;
-		static const int HEX_WIDTH = 2;
-		static const int HEX_SPACE = 2;
+	static const int HEX_HEIGHT = 2;
+	static const int HEX_WIDTH = 2;
+	static const int HEX_SPACE = 2;
 
 public:
 	typedef std::shared_ptr<WindowWorld> Ptr;
@@ -87,12 +71,12 @@ public:
 protected: 
 	int getHexGridHeight()
 	{
-		return this->height / HEX_HEIGHT;
+		return getHeight() / HEX_HEIGHT;
 	}
 
 	int getHexGridWidth()
 	{
-		return (this->width - HEX_SPACE) / (HEX_WIDTH + HEX_SPACE);
+		return (getWidth() - HEX_SPACE) / (HEX_WIDTH + HEX_SPACE);
 	}
 
 public:
@@ -156,7 +140,7 @@ public:
 		 */
 		int isTargetEven = this->y % 2 == 0;
 
-		for (int yy = 0; yy < this->height; yy++) {
+		for (int yy = 0; yy < getHeight(); yy++) {
 
 			int relativeY = yy / HEX_HEIGHT - this->getHexGridHeight() / 2;
 			int worldY = Util::addCircle(this->y, relativeY, world.height - 1);
@@ -206,7 +190,7 @@ public:
 
 		wmove (window, 
 				this->getHexGridHeight() - 3,
-				(this->width - HEX_SPACE) / 2 - HEX_WIDTH - HEX_SPACE);
+				(getWidth() - HEX_SPACE) / 2 - HEX_WIDTH - HEX_SPACE);
 		wrefresh(this->window);
 
 		/*
@@ -258,6 +242,31 @@ public:
 	*/
 	}
 };
+
+
+
+////////////////////////////
+
+Window::Window(int h, int w, int y, int x) :
+	height(h),
+	width(w),
+	startY(y),
+	startX(x)
+{
+	window = newwin(height, width, y, x);
+}
+
+Window::~Window()
+{
+	delwin(window);
+}
+
+Window::Ptr Window::create(int h, int w, int y, int x)
+{
+	return std::make_shared<Window>(h, w, y, x);
+}
+
+
 
 
 char makeChLeftBottom(const Terrain& terrain)
