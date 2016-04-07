@@ -1,9 +1,9 @@
 #ifndef _Console__Window_h_
 #define _Console__Window_h_
 
-#include "../reu.h"
+#include "../Strategy.h"
+#include "../Unit.h"
 #include "Console.h"
-#include "Util.h"
 
 namespace Console {
 
@@ -53,7 +53,7 @@ public:
 	void moveRightDown();
 	void moveLeftDown();
 
-	void display(const World& world);
+	void display(const World& world, const std::list<Unit::Ptr> units);
 
 protected: 
 	int getHexGridHeight();
@@ -169,7 +169,7 @@ void WindowWorld::moveLeftDown()
 
 }
 
-void WindowWorld::display(const World& world)
+void WindowWorld::display(const World& world, const std::list<Unit::Ptr> units)
 {
 	/* oo  oo
 	 * oo  oo
@@ -204,19 +204,30 @@ void WindowWorld::display(const World& world)
 
 			int xxx = isTargetEven ? xx : isThisEven ? xx : xx + 1;
 			int worldX = Util::addCircle(this->x, xxx - this->getHexGridWidth() / 2, world.width - 1);
-			int index = worldY * world.width + worldX;
+			ulong index = worldY * world.width + worldX;
 			auto terrain = world.terrains[worldY * world.width + worldX];
 
 			switch (yy % HEX_HEIGHT) {
-			case 0:
-				// TODO
-				if (index == 0) 
-					waddch(getWindow(), makeChUnit()); // XXX
-				else
+			case 0: 
+				{
+					auto ite = units.begin();
+
+					for (; ite != units.end(); ite++) {
+						if ((*ite)->getPos() == index)
+							break;
+					}
+
+					if (ite == units.end()) {
+						waddch(getWindow(), ' ');
+					}
+					else {
+						waddch(getWindow(), 'a');
+					}
+
 					waddch(getWindow(), ' ');
 
-				waddch(getWindow(), ' ');
-				break;
+					break;
+				}
 			case 1:
 				waddch(getWindow(), makeChTerrain(terrain));
 				waddch(getWindow(), ' ');

@@ -1,11 +1,11 @@
-#include <iostream>
-#include <vector>
-//#include <curses.h>
-
+#include "Strategy.h"
+#include "Unit.h"
 #include "World.h"
 #include "Console/Console.h"
 #include "Console/Window.h"
 #include "Terrain.h"
+
+#include <iostream>
 
 
 // 洗濯する楽しみはある
@@ -25,7 +25,6 @@
 //// TODO
 //
 // unit no hyouji
-// 
 //
 // automake ソース整理
 // console namespace
@@ -35,6 +34,10 @@
 int main () 
 {
 	auto world = World::createMassive(8, 10, true, 0.5f);
+	std::list<Unit::Ptr> units;
+
+	units.push_back(Unit::create(0));
+	units.push_back(Unit::create(1));
 
 	Console::initialize();
 
@@ -50,7 +53,7 @@ int main ()
 	bool isEndGame = false;
 
 	for (;;) {
-		winWorld->display(*world);
+		winWorld->display(*world, units);
 
 		int ch = getchar();
 	
