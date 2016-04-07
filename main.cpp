@@ -34,7 +34,7 @@
 
 int main () 
 {
-	auto world = World::createMassive(16, 30, true, 0.5f);
+	auto world = World::createMassive(8, 10, true, 0.5f);
 
 	Console::initialize();
 

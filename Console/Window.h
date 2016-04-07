@@ -5,8 +5,6 @@
 #include "Console.h"
 #include "Util.h"
 
-
-
 namespace Console {
 
 class Window
@@ -66,7 +64,8 @@ protected:
 
 //////////////////////////// Window.cpp ///////////////
 
-char makeChLeftBottom(const Terrain& terrain);
+char makeChUnit();
+char makeChTerrain(const Terrain& terrain);
 	
 //// Window class ////
 
@@ -205,16 +204,21 @@ void WindowWorld::display(const World& world)
 
 			int xxx = isTargetEven ? xx : isThisEven ? xx : xx + 1;
 			int worldX = Util::addCircle(this->x, xxx - this->getHexGridWidth() / 2, world.width - 1);
+			int index = worldY * world.width + worldX;
 			auto terrain = world.terrains[worldY * world.width + worldX];
 
 			switch (yy % HEX_HEIGHT) {
 			case 0:
 				// TODO
-				//					waddch(getWindow, makeChUnit(terrain));
+				if (index == 0) 
+					waddch(getWindow(), makeChUnit()); // XXX
+				else
+					waddch(getWindow(), ' ');
+
 				waddch(getWindow(), ' ');
 				break;
 			case 1:
-				waddch(getWindow(), makeChLeftBottom(terrain));
+				waddch(getWindow(), makeChTerrain(terrain));
 				waddch(getWindow(), ' ');
 				break;
 			default:
@@ -286,9 +290,13 @@ void WindowWorld::display(const World& world)
 }
 
 
+char makeChUnit()
+{
+	return 'a';
+}
 
 
-char makeChLeftBottom(const Terrain& terrain)
+char makeChTerrain(const Terrain& terrain)
 {
 	switch (terrain.base) {
 	case Terrain::BaseType::None:
