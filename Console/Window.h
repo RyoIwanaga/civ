@@ -129,44 +129,44 @@ int WindowWorld::getHexGridWidth()
 
 void WindowWorld::moveLeft() 
 {
-	x = Util::addCircle(x, -1, worldWidth - 1);
+	x = Util::Math::addCircle(x, -1, worldWidth - 1);
 }
 void WindowWorld::moveRight() 
 { 
-	x = Util::addCircle(x, 1, worldWidth - 1);
+	x = Util::Math::addCircle(x, 1, worldWidth - 1);
 }
 
 void WindowWorld::moveLeftUp()
 {
-	y = Util::addCircle(y, -1, worldHeight - 1);
+	y = Util::Math::addCircle(y, -1, worldHeight - 1);
 
 	if (y % 2 == 1) 
-		x = Util::addCircle(x, -1, worldWidth - 1);
+		x = Util::Math::addCircle(x, -1, worldWidth - 1);
 }
 
 void WindowWorld::moveRightUp()
 {
-	y = Util::addCircle(y, -1, worldHeight - 1);
+	y = Util::Math::addCircle(y, -1, worldHeight - 1);
 
 	if (y % 2 == 0) 
-		x = Util::addCircle(x, 1, worldWidth - 1);
+		x = Util::Math::addCircle(x, 1, worldWidth - 1);
 }
 
 void WindowWorld::moveRightDown()
 {
-	y = Util::addCircle(y, 1, worldHeight - 1);
+	y = Util::Math::addCircle(y, 1, worldHeight - 1);
 
 	if (y % 2 == 0) 
-		x = Util::addCircle(x, 1, worldWidth - 1);
+		x = Util::Math::addCircle(x, 1, worldWidth - 1);
 
 }
 
 void WindowWorld::moveLeftDown()
 {
-	y = Util::addCircle(y, 1, worldHeight - 1);
+	y = Util::Math::addCircle(y, 1, worldHeight - 1);
 
 	if (y % 2 == 1) 
-		x = Util::addCircle(x, -1, worldWidth - 1);
+		x = Util::Math::addCircle(x, -1, worldWidth - 1);
 
 }
 
@@ -186,7 +186,7 @@ void WindowWorld::display(const World& world, const std::list<Unit::Ptr> units)
 	for (int yy = 0; yy < getHeight(); yy++) {
 
 		int relativeY = yy / HEX_HEIGHT - this->getHexGridHeight() / 2;
-		int worldY = Util::addCircle(this->y, relativeY, world.height - 1);
+		int worldY = Util::Math::addCircle(this->y, relativeY, world.height - 1);
 		bool isEvenWorldY = worldY % 2 == 0;
 		bool isThisEven = isTargetEven ? isEvenWorldY : ! isEvenWorldY;
 
@@ -204,7 +204,7 @@ void WindowWorld::display(const World& world, const std::list<Unit::Ptr> units)
 		for (int xx = 0; xx < this->getHexGridWidth(); xx++) {
 
 			int xxx = isTargetEven ? xx : isThisEven ? xx : xx + 1;
-			int worldX = Util::addCircle(this->x, xxx - this->getHexGridWidth() / 2, world.width - 1);
+			int worldX = Util::Math::addCircle(this->x, xxx - this->getHexGridWidth() / 2, world.width - 1);
 			ulong index = worldY * world.width + worldX;
 			auto terrain = world.terrains[worldY * world.width + worldX];
 

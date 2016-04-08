@@ -19,12 +19,14 @@ public:
 	REU__PROPERTY(uint, hp, Hp);
 	REU__PROPERTY(int, hpMax, HpMax);
 	REU__PROPERTY(int, damage, Damaege);
+	REU__PROPERTY(ushort, move, Move);
+	REU__PROPERTY(ushort, moveMax, MoveMax);
 
 public:
 	typedef std::shared_ptr<Unit> Ptr;
 	static Ptr create(Type t, ushort owner, ulong pos);
 
-	Unit(Type t, ushort owner, ulong pos, int hp, int damage);
+	Unit(Type t, ushort owner, ulong pos, int hp, int damage, ushort move);
 	virtual ~Unit();
 };
 

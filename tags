@@ -4,14 +4,138 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
+Archer	Unit.h	/^		Archer,$/;"	m	class:Unit::Type
+BaseType	Terrain.h	/^	enum class BaseType {$/;"	c	class:Terrain
 CFLAGS	Makefile	/^CFLAGS=-Wall -O$/;"	m
+CFLAGS	test/Makefile	/^CFLAGS=-Wall -O$/;"	m
+CFLAGS	utest/Makefile	/^CFLAGS=-Wall -O$/;"	m
 CPP11	Makefile	/^CPP11=-std=c++11$/;"	m
+CPP11	test/Makefile	/^CPP11=-std=c++11$/;"	m
+CPP11	utest/Makefile	/^CPP11=-std=c++11$/;"	m
 CURSES	Makefile	/^CURSES=-lncurses$/;"	m
-OBJS	Makefile	/^OBJS=$/;"	m
-Tile	a.cpp	/^	Tile (int id, bool isMountain, bool isForest) :$/;"	f	class:Tile
-Tile	a.cpp	/^class Tile {$/;"	c	file:
-id	a.cpp	/^	int id;$/;"	m	class:Tile	file:
-isForest	a.cpp	/^	bool isForest;$/;"	m	class:Tile	file:
-isMountain	a.cpp	/^	bool isMountain;$/;"	m	class:Tile	file:
-main	a.cpp	/^int main (void) $/;"	f
-printSquare	a.cpp	/^	static void printSquare (std::vector<Tile> tiles, int width) \/\/ FIXME$/;"	f	class:Tile
+CURSES	utest/Makefile	/^CURSES=-lncurses$/;"	m
+Coast	Terrain.h	/^		Coast,$/;"	m	class:Terrain::BaseType
+Color	Console/Console.h	/^enum class Color : short {$/;"	c	namespace:Console
+Console	Console/Console.h	/^namespace Console {$/;"	n
+Console	Console/Window.h	/^namespace Console {$/;"	n
+Desert	Terrain.h	/^		Desert,		\/\/ 0 0 0 $/;"	m	class:Terrain::BaseType
+FeatureType	Terrain.h	/^	enum class FeatureType {$/;"	c	class:Terrain
+Flatland	Terrain.h	/^		Flatland,$/;"	m	class:Terrain::VerticalType
+FloodPlain	Terrain.h	/^		FloodPlain,	\/\/ 3 0 1$/;"	m	class:Terrain::FeatureType
+Forest	Terrain.h	/^		Forest,		\/\/ 0 +1 0$/;"	m	class:Terrain::FeatureType
+Glassland	Terrain.h	/^		Glassland, 	\/\/ 2 0 0$/;"	m	class:Terrain::BaseType
+HEX_HEIGHT	Console/Window.h	/^	static const int HEX_HEIGHT = 2;$/;"	m	class:Console::WindowWorld
+HEX_SPACE	Console/Window.h	/^	static const int HEX_SPACE = 2;$/;"	m	class:Console::WindowWorld
+HEX_WIDTH	Console/Window.h	/^	static const int HEX_WIDTH = 2;$/;"	m	class:Console::WindowWorld
+Hex	Hex.h	/^class Hex$/;"	c
+HexTest	utest/main.cpp	/^CPPUNIT_TEST_SUITE_REGISTRATION(HexTest);$/;"	v
+HexTest	utest/main.cpp	/^class HexTest : public CPPUNIT_NS::TestFixture$/;"	c	file:
+Hill	Terrain.h	/^		Hill,$/;"	m	class:Terrain::VerticalType
+Ice	Terrain.h	/^		Ice,		\/\/ 0 0 0$/;"	m	class:Terrain::BaseType
+Jungle	Terrain.h	/^		Jungle,		\/\/ -1 0 0$/;"	m	class:Terrain::FeatureType
+LCPPUNIT	utest/Makefile	/^LCPPUNIT=-lcppunit$/;"	m
+Lake	Terrain.h	/^		Lake,$/;"	m	class:Terrain::BaseType
+None	Terrain.h	/^		None,$/;"	m	class:Terrain::BaseType
+None	Terrain.h	/^		None,$/;"	m	class:Terrain::FeatureType
+OBJS	Makefile	/^OBJS=World.cpp  main.cpp Unit.cpp$/;"	m
+OBJS	test/Makefile	/^OBJS=$/;"	m
+OBJS	utest/Makefile	/^OBJS=$/;"	m
+Oasis	Terrain.h	/^		Oasis,		\/\/ 3 0 2$/;"	m	class:Terrain::FeatureType
+Ocean	Terrain.h	/^		Ocean,$/;"	m	class:Terrain::BaseType
+Peak	Terrain.h	/^		Peak,$/;"	m	class:Terrain::VerticalType
+Plains	Terrain.h	/^		Plains,		\/\/ 1 1 0$/;"	m	class:Terrain::BaseType
+Player1	Console/Console.h	/^	Player1 = 10,$/;"	m	class:Console::Color
+Player2	Console/Console.h	/^	Player2,$/;"	m	class:Console::Color
+Player3	Console/Console.h	/^	Player3,$/;"	m	class:Console::Color
+Player4	Console/Console.h	/^	Player4,$/;"	m	class:Console::Color
+Player5	Console/Console.h	/^	Player5,$/;"	m	class:Console::Color
+Player6	Console/Console.h	/^	Player6,$/;"	m	class:Console::Color
+Player7	Console/Console.h	/^	Player7,$/;"	m	class:Console::Color
+Player8	Console/Console.h	/^	Player8,$/;"	m	class:Console::Color
+Pos	World.h	/^	Pos(int x, int y) :$/;"	f	class:Pos
+Pos	World.h	/^class Pos$/;"	c
+Ptr	Console/Window.h	/^	typedef std::shared_ptr<Window> Ptr;$/;"	t	class:Console::Window
+Ptr	Console/Window.h	/^	typedef std::shared_ptr<WindowWorld> Ptr;$/;"	t	class:Console::WindowWorld
+Ptr	Unit.h	/^	typedef std::shared_ptr<Unit> Ptr;$/;"	t	class:Unit
+Ptr	World.h	/^	typedef std::shared_ptr<World> Ptr;$/;"	t	class:World
+REU__PROPERTY	reu.h	/^#define REU__PROPERTY(/;"	d
+Scout	Unit.h	/^		Scout,$/;"	m	class:Unit::Type
+Settler	Unit.h	/^		Settler = 0,$/;"	m	class:Unit::Type
+Terrain	Terrain.h	/^	Terrain () :$/;"	f	class:Terrain
+Terrain	Terrain.h	/^	Terrain (BaseType base, VerticalType vertical, FeatureType feature) :$/;"	f	class:Terrain
+Terrain	Terrain.h	/^class Terrain $/;"	c
+Tundra	Terrain.h	/^		Tundra,		\/\/ 1 0 0$/;"	m	class:Terrain::BaseType
+Type	Unit.h	/^	enum class Type {$/;"	c	class:Unit
+Unit	Unit.cpp	/^Unit::Unit(Unit::Type t, ushort owner, ulong pos, int hp, int damage, ushort move) :$/;"	f	class:Unit
+Unit	Unit.h	/^class Unit$/;"	c
+Util	Util.h	/^namespace Util {$/;"	n
+UtilTest	utest/main.cpp	/^CPPUNIT_TEST_SUITE_REGISTRATION(UtilTest);$/;"	v
+UtilTest	utest/main.cpp	/^class UtilTest : public CPPUNIT_NS::TestFixture$/;"	c	file:
+VerticalType	Terrain.h	/^	enum class VerticalType {$/;"	c	class:Terrain
+Warrior	Unit.h	/^		Warrior,$/;"	m	class:Unit::Type
+Window	Console/Window.h	/^Window::Window(int h, int w, int y, int x) :$/;"	f	class:Console::Window
+Window	Console/Window.h	/^class Window$/;"	c	namespace:Console
+WindowWorld	Console/Window.h	/^WindowWorld::WindowWorld(int h, int w, int y, int x, int worldHeight, int worldWidth, bool isCylinder) :$/;"	f	class:Console::WindowWorld
+WindowWorld	Console/Window.h	/^class WindowWorld : public Window$/;"	c	namespace:Console
+World	World.h	/^	World (int height, int width, bool isCylinder) :$/;"	f	class:World
+World	World.h	/^class World$/;"	c
+_Console__Window_h_	Console/Window.h	/^#define _Console__Window_h_$/;"	d
+_Console_h_	Console/Console.h	/^#define _Console_h_$/;"	d
+_Hex_h_	Hex.h	/^#define _Hex_h_$/;"	d
+_Strategy__Strategy_h_	Strategy.h	/^#define _Strategy__Strategy_h_$/;"	d
+_Terrain_h_	Terrain.h	/^#define _Terrain_h_$/;"	d
+_Unit_h_	Unit.h	/^#define _Unit_h_$/;"	d
+_Util_h_	Util.h	/^#define _Util_h_$/;"	d
+_World_h_	World.h	/^#define _World_h_$/;"	d
+_reu_h_	reu.h	/^#define _reu_h_$/;"	d
+addCircle	Util.h	/^	inline int addCircle(int base, int add, int max, int min = 0) $/;"	f	namespace:Util
+addCircle	utest/main.cpp	/^	void addCircle()$/;"	f	class:UtilTest
+base	Terrain.h	/^	BaseType base;$/;"	m	class:Terrain
+create	Console/Window.h	/^Window::Ptr Window::create(int h, int w, int y, int x)$/;"	f	class:Console::Window
+create	Console/Window.h	/^WindowWorld::Ptr WindowWorld::create(int h, int w, int y, int x, int wHeight, int wWidth, bool isCylinder)$/;"	f	class:Console::WindowWorld
+create	Unit.cpp	/^Unit::Ptr Unit::create(Type t, ushort owner, ulong p)$/;"	f	class:Unit
+createMassive	World.cpp	/^World::Ptr World::createMassive(int height, int width, bool isCylinder, float landPersentage)$/;"	f	class:World
+display	Console/Window.h	/^void WindowWorld::display(const World& world, const std::list<Unit::Ptr> units)$/;"	f	class:Console::WindowWorld
+feature	Terrain.h	/^	FeatureType feature;$/;"	m	class:Terrain
+finalize	Console/Console.h	/^void finalize ()$/;"	f	namespace:Console
+getHexGridHeight	Console/Window.h	/^int WindowWorld::getHexGridHeight()$/;"	f	class:Console::WindowWorld
+getHexGridWidth	Console/Window.h	/^int WindowWorld::getHexGridWidth()$/;"	f	class:Console::WindowWorld
+height	World.h	/^	int height;$/;"	m	class:World
+initialize	Console/Console.h	/^void initialize()$/;"	f	namespace:Console
+isCylinder	World.h	/^	bool isCylinder;$/;"	m	class:World
+list	reu.h	/^	namespace list {$/;"	n	namespace:reu
+listToSet	utest/main.cpp	/^	std::set<int> listToSet(const std::list<int>& lst)$/;"	f	class:HexTest
+main	main.cpp	/^int main () $/;"	f
+main	test/HexTest.cpp	/^int main(void)$/;"	f
+main	utest/main.cpp	/^int main(int argc, char const *argv[]){$/;"	f
+makeChTerrain	Console/Window.h	/^char makeChTerrain(const Terrain& terrain)$/;"	f	namespace:Console
+makeChUnit	Console/Window.h	/^char makeChUnit(Unit::Ptr unit)$/;"	f	namespace:Console
+makeColorPlayer	Console/Console.h	/^short makeColorPlayer(ushort player)$/;"	f	namespace:Console
+moveLeft	Console/Window.h	/^void WindowWorld::moveLeft() $/;"	f	class:Console::WindowWorld
+moveLeftDown	Console/Window.h	/^void WindowWorld::moveLeftDown()$/;"	f	class:Console::WindowWorld
+moveLeftUp	Console/Window.h	/^void WindowWorld::moveLeftUp()$/;"	f	class:Console::WindowWorld
+moveRight	Console/Window.h	/^void WindowWorld::moveRight() $/;"	f	class:Console::WindowWorld
+moveRightDown	Console/Window.h	/^void WindowWorld::moveRightDown()$/;"	f	class:Console::WindowWorld
+moveRightUp	Console/Window.h	/^void WindowWorld::moveRightUp()$/;"	f	class:Console::WindowWorld
+neighbor	utest/main.cpp	/^	void neighbor()$/;"	f	class:HexTest
+neighbors	Hex.h	/^	static std::list<int> neighbors(int index, int height, int width, bool isCyinder)$/;"	f	class:Hex
+printHex	test/HexTest.cpp	/^void printHex(int index, const std::list<int>& lst)$/;"	f
+reu	reu.h	/^namespace reu {$/;"	n
+setUp	utest/main.cpp	/^	void setUp()$/;"	f	class:HexTest
+setUp	utest/main.cpp	/^	void setUp()$/;"	f	class:UtilTest
+sint	reu.h	/^typedef int 			sint;$/;"	t
+slong	reu.h	/^typedef long 			slong;$/;"	t
+sshort	reu.h	/^typedef short			sshort;$/;"	t
+terrains	World.h	/^	std::vector<Terrain> terrains;$/;"	m	class:World
+testDown	utest/main.cpp	/^	void testDown()$/;"	f	class:HexTest
+testDown	utest/main.cpp	/^	void testDown()$/;"	f	class:UtilTest
+uint	reu.h	/^typedef unsigned int 	uint;$/;"	t
+ulong	reu.h	/^typedef unsigned long 	ulong;$/;"	t
+ushort	reu.h	/^typedef unsigned short	ushort;$/;"	t
+vertical	Terrain.h	/^	VerticalType vertical;$/;"	m	class:Terrain
+width	World.h	/^	int width;$/;"	m	class:World
+x	World.h	/^	int x, y;$/;"	m	class:Pos
+y	World.h	/^	int x, y;$/;"	m	class:Pos
+~Unit	Unit.cpp	/^Unit::~Unit()$/;"	f	class:Unit
+~Window	Console/Window.h	/^Window::~Window()$/;"	f	class:Console::Window
+~WindowWorld	Console/Window.h	/^	virtual ~WindowWorld() {}$/;"	f	class:Console::WindowWorld

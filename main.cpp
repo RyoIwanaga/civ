@@ -33,7 +33,7 @@
 
 int main () 
 {
-	auto world = World::createMassive(8, 10, true, 0.5f);
+	auto world = World::createMassive(12, 20, true, 0.5f);
 	std::list<Unit::Ptr> units;
 
 	units.push_back(Unit::create(Unit::Type::Settler, 0, 0));
@@ -83,6 +83,7 @@ int main ()
 		case 'l':
 			winWorld->moveRight();
 			break;
+		case 'g':
 		case 'q':
 			isEndGame = true;
 		}
