@@ -210,6 +210,16 @@ void WindowWorld::display(const World& world, const std::list<Unit::Ptr> units)
 			switch (yy % HEX_HEIGHT) {
 			case 0: 
 				{
+					auto targetUnit = Reu::find<Unit::Ptr>(units, [index](Unit::Ptr u){ return u->getPos() == index; });
+
+					if (targetUnit == nullptr) {
+						waddch(getWindow(), ' ');
+					}
+					else {
+						waddch(getWindow(), 'a');
+					}
+
+					/*
 					auto ite = units.begin();
 
 					for (; ite != units.end(); ite++) {
@@ -218,11 +228,10 @@ void WindowWorld::display(const World& world, const std::list<Unit::Ptr> units)
 					}
 
 					if (ite == units.end()) {
-						waddch(getWindow(), ' ');
 					}
 					else {
 						waddch(getWindow(), 'a');
-					}
+					} */
 
 					waddch(getWindow(), ' ');
 

@@ -15,18 +15,22 @@ typedef unsigned long 	ulong;
 
 #include <algorithm>
 #include <list>
+#include <functional>
 
 namespace Reu {
 
-	/*
 template <typename T>
-T find(std::list<T> lst)
+T* find(std::list<T> lst, std::function<bool(T)> fnPred)
 {
-	for(T item : lst) {
+	auto ite = lst.begin();
+
+	for (; ite != lst.end(); ite++) {
+		if (fnPred(*ite))
+			return &*ite;
 	}
 
-	return nil;
-} */
+	return nullptr;
+} 
 	
 } // end of namespace Reu
 
