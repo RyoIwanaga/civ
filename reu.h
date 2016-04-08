@@ -7,6 +7,8 @@ private:	type var;												\
 public:		virtual type get##fnName() const { return var; }		\
 public:		virtual void set##fnName(type var) { this->var = var; } 
 
+typedef short			sshort;
+typedef unsigned short	ushort;
 typedef int 			sint;
 typedef unsigned int 	uint;
 typedef long 			slong;
@@ -17,22 +19,25 @@ typedef unsigned long 	ulong;
 #include <list>
 #include <functional>
 
-namespace Reu {
+namespace reu {
+	namespace list {
 
-template <typename T>
-T* find(std::list<T> lst, std::function<bool(T)> fnPred)
-{
-	auto ite = lst.begin();
+		/*
+		template <typename T> 
+		typename std::list<T>::iterator find(std::list<T> lst, std::function<bool(T)> fnPred)
+		{
+			auto ite = lst.begin();
 
-	for (; ite != lst.end(); ite++) {
-		if (fnPred(*ite))
-			return &*ite;
+			for (; ite != lst.end(); ite++) {
+				if (fnPred(*ite))
+					(*ite)->getPos();
+					return typename ite;
+			}
+
+			return ite;
+		} */
 	}
-
-	return nullptr;
-} 
-	
-} // end of namespace Reu
+}
 
 #endif
 

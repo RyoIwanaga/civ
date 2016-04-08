@@ -36,8 +36,9 @@ int main ()
 	auto world = World::createMassive(8, 10, true, 0.5f);
 	std::list<Unit::Ptr> units;
 
-	units.push_back(Unit::create(0));
-	units.push_back(Unit::create(1));
+	units.push_back(Unit::create(Unit::Type::Settler, 0, 0));
+	units.push_back(Unit::create(Unit::Type::Warrior, 1, 1));
+
 
 	Console::initialize();
 

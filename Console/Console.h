@@ -11,6 +11,22 @@ namespace Console {
 
 #include <curses.h>
 
+enum class Color : short {
+	Player1 = 10,
+	Player2,
+	Player3,
+	Player4,
+	Player5,
+	Player6,
+	Player7,
+	Player8,
+};
+
+short makeColorPlayer(ushort player)
+{
+	return player + 10;
+}
+
 void initialize()
 {
 	// The very first thing to do: Before you use any other curses routines, the initscr() routine must be called first.
@@ -32,6 +48,11 @@ void initialize()
 	init_pair(1, COLOR_WHITE, COLOR_BLACK);
 	init_pair(2, COLOR_WHITE, COLOR_GREEN);
 	init_pair(3, COLOR_WHITE, COLOR_BLUE);
+
+	
+	init_pair(static_cast<int>(Color::Player1), COLOR_WHITE, COLOR_BLUE);
+	init_pair(static_cast<int>(Color::Player2), COLOR_WHITE, COLOR_RED);
+	init_pair(static_cast<int>(Color::Player3), COLOR_WHITE, COLOR_YELLOW);
 }
 
 void finalize ()

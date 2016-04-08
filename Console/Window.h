@@ -64,7 +64,8 @@ protected:
 
 //////////////////////////// Window.cpp ///////////////
 
-char makeChUnit();
+char makeChUnit(Unit::Ptr unit);
+char makeColorUnit(Unit::Ptr unit);
 char makeChTerrain(const Terrain& terrain);
 	
 //// Window class ////
@@ -210,28 +211,20 @@ void WindowWorld::display(const World& world, const std::list<Unit::Ptr> units)
 			switch (yy % HEX_HEIGHT) {
 			case 0: 
 				{
-					auto targetUnit = Reu::find<Unit::Ptr>(units, [index](Unit::Ptr u){ return u->getPos() == index; });
-
-					if (targetUnit == nullptr) {
-						waddch(getWindow(), ' ');
-					}
-					else {
-						waddch(getWindow(), 'a');
-					}
-
-					/*
-					auto ite = units.begin();
-
-					for (; ite != units.end(); ite++) {
-						if ((*ite)->getPos() == index)
+					auto iteTargetUnit = units.begin();
+					for (; iteTargetUnit != units.end(); iteTargetUnit++) {
+						if ((*iteTargetUnit)->getPos() == index)
 							break;
 					}
 
-					if (ite == units.end()) {
+
+					if (iteTargetUnit == units.end()) {
+						waddch(getWindow(), ' ');
 					}
 					else {
-						waddch(getWindow(), 'a');
-					} */
+						waddch(getWindow(), makeChUnit(*iteTargetUnit) | COLOR_PAIR(makeColorPlayer((*iteTargetUnit)->getOwner())));
+										//(*iteTargetUnit)->getOwner())));
+					}
 
 					waddch(getWindow(), ' ');
 
@@ -310,10 +303,20 @@ void WindowWorld::display(const World& world, const std::list<Unit::Ptr> units)
 }
 
 
-char makeChUnit()
+char makeChUnit(Unit::Ptr unit)
 {
-	return 'a';
+	switch(unit->getType()) {
+	case Unit::Type::Settler:
+		return 's';
+		break;
+	case Unit::Type::Warrior:
+		return 'w';
+		break;
+	default:
+		assert(false);
+	}
 }
+
 
 
 char makeChTerrain(const Terrain& terrain)
